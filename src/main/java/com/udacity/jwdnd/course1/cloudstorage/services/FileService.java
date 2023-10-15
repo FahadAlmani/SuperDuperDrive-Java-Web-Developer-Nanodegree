@@ -23,7 +23,7 @@ public class FileService {
         return this.fileMapper.getFileName(fileName) == null;
     }
 
-    public ArrayList<FileModel> saveFile(MultipartFile fileUpload){
+    public int saveFile(MultipartFile fileUpload){
         try {
             String currentDirectory = System.getProperty("user.dir");
             String uploadDirectory = "/uploadFiles/";
@@ -33,14 +33,20 @@ public class FileService {
 
             // todo make user ID dynamic
             FileModel fileModel = new FileModel(originalFilename, fileUpload.getContentType(), String.valueOf(fileUpload.getSize()),1, fileUpload.getBytes());
-            this.fileMapper.insert(fileModel);
+            int numberOfRowsAdded = this.fileMapper.insert(fileModel);
 
             fileUpload.transferTo(new File(filePath));
 
-            return this.fileMapper.getFiles();
+            return numberOfRowsAdded;
 
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload the file.", e);
         }
+    }
+    public ArrayList<FileModel> getFiles(){
+        return this.fileMapper.getFiles();
+    }
+    public void deleteFile(int fileId){
+        this.fileMapper.delete(fileId);
     }
 }
