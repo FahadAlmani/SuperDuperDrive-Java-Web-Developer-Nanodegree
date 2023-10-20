@@ -5,9 +5,8 @@ import com.udacity.jwdnd.course1.cloudstorage.model.FileModel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 
 @Service
@@ -25,18 +24,13 @@ public class FileService {
 
     public int saveFile(MultipartFile fileUpload){
         try {
-            String currentDirectory = System.getProperty("user.dir");
-            String uploadDirectory = "/uploadFiles/";
-            String originalFilename = fileUpload.getOriginalFilename();
-
-            String filePath = currentDirectory + uploadDirectory + originalFilename;
-
             // todo make user ID dynamic
-            FileModel fileModel = new FileModel(originalFilename, fileUpload.getContentType(), String.valueOf(fileUpload.getSize()),1, fileUpload.getBytes());
+            FileModel fileModel = new FileModel(fileUpload.getOriginalFilename(),
+                    fileUpload.getContentType(),
+                    String.valueOf(fileUpload.getSize()),
+                    1,
+                    fileUpload.getBytes());
             int numberOfRowsAdded = this.fileMapper.insert(fileModel);
-
-            fileUpload.transferTo(new File(filePath));
-
             return numberOfRowsAdded;
 
         } catch (IOException e) {
@@ -48,5 +42,8 @@ public class FileService {
     }
     public void deleteFile(int fileId){
         this.fileMapper.delete(fileId);
+    }
+    public FileModel getFileById(int fileId){
+        return this.fileMapper.getFile(fileId);
     }
 }

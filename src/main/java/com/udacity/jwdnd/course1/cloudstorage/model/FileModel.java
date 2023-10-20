@@ -8,14 +8,14 @@ public class FileModel {
     private String contentType;
     private String fileSize;
     private int userId;
-    private byte[] fileDate;
+    private byte[] fileData;
 
-    public FileModel(String fileName, String contentType, String fileSize, int userId, byte[] fileDate) {
+    public FileModel(String fileName, String contentType, String fileSize, int userId, byte[] fileData) {
         this.fileName = fileName;
         this.contentType = contentType;
         this.fileSize = fileSize;
         this.userId = userId;
-        this.fileDate = fileDate;
+        this.fileData = fileData;
     }
 
     public int getFileId() {
@@ -58,11 +58,11 @@ public class FileModel {
         this.userId = userId;
     }
 
-    public byte[] getFileDate() {
-        return fileDate;
+    public byte[] getFileData() {
+        return fileData;
     }
 
-    public void setFileDate(byte[] fileDate) {
-        this.fileDate = fileDate;
+    public void setFileData(byte[] fileData) {
+        this.fileData = fileData;
     }
 }
