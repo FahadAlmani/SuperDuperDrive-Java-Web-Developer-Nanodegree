@@ -25,14 +25,11 @@ public class FileService {
     public int saveFile(MultipartFile fileUpload){
         try {
             // todo make user ID dynamic
-            FileModel fileModel = new FileModel(fileUpload.getOriginalFilename(),
+            return this.fileMapper.insert(new FileModel(fileUpload.getOriginalFilename(),
                     fileUpload.getContentType(),
                     String.valueOf(fileUpload.getSize()),
                     1,
-                    fileUpload.getBytes());
-            int numberOfRowsAdded = this.fileMapper.insert(fileModel);
-            return numberOfRowsAdded;
-
+                    fileUpload.getBytes()));
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload the file.", e);
         }
