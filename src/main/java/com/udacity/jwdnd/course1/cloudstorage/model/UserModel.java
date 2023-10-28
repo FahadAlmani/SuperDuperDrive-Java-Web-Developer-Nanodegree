@@ -8,7 +8,8 @@ public class UserModel {
     private String firstName;
     private String lastName;
 
-    public UserModel(String username, String salt, String password, String firstName, String lastName) {
+    public UserModel(Integer userId, String username, String salt, String password, String firstName, String lastName) {
+        this.userId = userId;
         this.username = username;
         this.salt = salt;
         this.password = password;

@@ -3,14 +3,15 @@ package com.udacity.jwdnd.course1.cloudstorage.model;
 import java.sql.Date;
 
 public class FileModel {
-    private int fileId;
+    private Integer fileId;
     private String fileName;
     private String contentType;
     private String fileSize;
-    private int userId;
+    private Integer userId;
     private byte[] fileData;
 
-    public FileModel(String fileName, String contentType, String fileSize, int userId, byte[] fileData) {
+    public FileModel(Integer fileId, String fileName, String contentType, String fileSize, Integer userId, byte[] fileData) {
+        this.fileId = fileId;
         this.fileName = fileName;
         this.contentType = contentType;
         this.fileSize = fileSize;
@@ -18,11 +19,11 @@ public class FileModel {
         this.fileData = fileData;
     }
 
-    public int getFileId() {
+    public Integer getFileId() {
         return fileId;
     }
 
-    public void setFileId(int fileId) {
+    public void setFileId(Integer fileId) {
         this.fileId = fileId;
     }
 
@@ -50,11 +51,11 @@ public class FileModel {
         this.fileSize = fileSize;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

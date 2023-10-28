@@ -1,6 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
-import com.udacity.jwdnd.course1.cloudstorage.dto.SignupForm;
+import com.udacity.jwdnd.course1.cloudstorage.model.UserModel;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,22 +18,21 @@ public class SignupController {
     }
 
     @GetMapping
-    public String getSignup(SignupForm signupForm){
+    public String getSignup(UserModel userModel){
         return "signup";
 
     }
     @PostMapping
-    public String postSignup(SignupForm signupForm, Model model){
-        if(!this.userService.isAvailableUsername(signupForm.getUsername())){
+    public String postSignup(UserModel userModel, Model model){
+        if(!this.userService.isAvailableUsername(userModel.getUsername())){
             model.addAttribute("errorMessage", "The user Name is already exist");
             return "signup";
         }
-        int numberOfRowsAdded = userService.createUser(signupForm);
+        int numberOfRowsAdded = userService.createUser(userModel);
         if(numberOfRowsAdded != 1){
             model.addAttribute("errorMessage", "Something went wrong, please try again later");
             return "signup";
         }
-//        model.addAttribute("errorMessage", "");
         model.addAttribute("isSignupSuccess", true);
         return "signup";
 

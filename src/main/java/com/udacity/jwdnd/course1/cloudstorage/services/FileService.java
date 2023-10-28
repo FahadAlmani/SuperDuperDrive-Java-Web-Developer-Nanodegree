@@ -25,7 +25,7 @@ public class FileService {
     public int saveFile(MultipartFile fileUpload){
         try {
             // todo make user ID dynamic
-            return this.fileMapper.insert(new FileModel(fileUpload.getOriginalFilename(),
+            return this.fileMapper.insert(new FileModel(null,fileUpload.getOriginalFilename(),
                     fileUpload.getContentType(),
                     String.valueOf(fileUpload.getSize()),
                     1,

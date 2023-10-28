@@ -17,8 +17,8 @@ public class NoteService {
 
     public int saveNote(NoteModel noteModel){
             // todo make user ID dynamic
-        return this.noteMapper.insert( new NoteModel(null, noteModel.noteTitle,
-                    noteModel.noteDescription,
+        return this.noteMapper.insert( new NoteModel(null, noteModel.getNoteTitle(),
+                    noteModel.getNoteDescription(),
                     1));
     }
     public ArrayList<NoteModel> getNotes(){
