@@ -13,9 +13,11 @@ import java.util.ArrayList;
 public class FileService {
 
     private final FileMapper fileMapper;
+    private final UserService userService;
 
-    public FileService(FileMapper fileMapper) {
+    public FileService(FileMapper fileMapper, UserService userService) {
         this.fileMapper = fileMapper;
+        this.userService = userService;
     }
 
     public boolean isAvailableFileName(String fileName){
@@ -24,11 +26,10 @@ public class FileService {
 
     public int saveFile(MultipartFile fileUpload){
         try {
-            // todo make user ID dynamic
             return this.fileMapper.insert(new FileModel(null,fileUpload.getOriginalFilename(),
                     fileUpload.getContentType(),
                     String.valueOf(fileUpload.getSize()),
-                    1,
+                    this.userService.getUserId(),
                     fileUpload.getBytes()));
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload the file.", e);

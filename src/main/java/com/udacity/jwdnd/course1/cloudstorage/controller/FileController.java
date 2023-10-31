@@ -36,7 +36,6 @@ public class FileController {
     @GetMapping(path = "/deleteFile/{fileId}")
     public String deleteFile(@PathVariable(name = "fileId") int fileId, RedirectAttributes attributes){
         this.fileService.deleteFile(fileId);
-        attributes.addFlashAttribute("files", this.fileService.getFiles());
         attributes.addFlashAttribute("message", "File Deleted");
         return "redirect:/home";
     }
