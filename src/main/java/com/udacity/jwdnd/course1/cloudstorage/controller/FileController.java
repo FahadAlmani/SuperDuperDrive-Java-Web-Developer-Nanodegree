@@ -5,7 +5,10 @@ import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,9 +24,12 @@ public class FileController {
     }
 
     @PostMapping(path = "/uploadFile")
-    public String postFileUpload(@RequestParam("fileUpload") MultipartFile fileUpload, RedirectAttributes attributes){
+    public String postFileUpload(@RequestParam("fileUpload") MultipartFile fileUpload, RedirectAttributes attributes) {
+        System.out.println("testswtstststststst");
         if (fileUpload.isEmpty()) {
             attributes.addFlashAttribute("message", "Please select a file to upload");
+        }else if (fileUpload.getSize() > 4 * 1024 * 1024) {
+            attributes.addFlashAttribute("message", "the file size is greater than 4MB!");
         }else if(this.fileService.isAvailableFileName(fileUpload.getOriginalFilename())){
                 this.fileService.saveFile(fileUpload);
                 attributes.addFlashAttribute("message", "File uploaded");
